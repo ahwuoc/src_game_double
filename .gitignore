@@ -6,7 +6,8 @@ dist/
 # IDE files
 .idea/
 *.iml
-nbproject/
+nbproject/private/
+nbproject/build-impl.xml
 
 # Compiled class files
 *.class
