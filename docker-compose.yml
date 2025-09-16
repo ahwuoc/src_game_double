@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mariadb:10.4
+    container_name: dragonboy_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: dragonboy
+      MYSQL_USER: dragonboy_user
+      MYSQL_PASSWORD: dragonboy_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./thaodragon.sql:/docker-entrypoint-initdb.d/thaodragon.sql
+      - ./dragonballsaga.sql:/docker-entrypoint-initdb.d/dragonballsaga.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sql-mode=""
+    networks:
+      - dragonboy_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dragonboy_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    networks:
+      - dragonboy_network
+
+volumes:
+  mysql_data:
+
+networks:
+  dragonboy_network:
+    driver: bridge
