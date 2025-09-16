@@ -1,0 +1,31 @@
+# Build artifacts
+build/
+out/
+dist/
+
+# IDE files
+.idea/
+*.iml
+nbproject/
+
+# Compiled class files
+*.class
+
+# Log files
+log/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Private files
+Private/
+
+# Temporary files
+*.tmp
+*.temp
