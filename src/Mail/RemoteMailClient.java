@@ -82,7 +82,7 @@ public class RemoteMailClient extends JFrame {
         panel.add(txtServerIP);
 
         panel.add(new JLabel("Port:"));
-        txtServerPort = new JTextField("14445");
+        txtServerPort = new JTextField("14446");
         panel.add(txtServerPort);
 
         panel.add(new JLabel("Username:"));

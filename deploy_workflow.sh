@@ -14,12 +14,13 @@ echo "✅ Code pushed to GitHub"
 echo ""
 
 # 2. Hướng dẫn deploy trên VPS
-echo "2. Deploy on VPS:"
+echo "2. Deploy on VPS (14.225.219.221):"
 echo "   SSH vào VPS: ssh user@14.225.219.221"
 echo "   cd /path/to/DragonBoyDoubleServer"
 echo "   git pull origin master"
 echo "   ant compile jar"
-echo "   # Restart server để load Remote Mail Server"
+echo "   # Restart game server để load Remote Mail Server"
+echo "   # Remote Mail Server sẽ tự động chạy trên port 14446"
 echo ""
 
 # 3. Kiểm tra port
