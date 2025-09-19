@@ -1,6 +1,5 @@
 package data;
 
-
 import org.openjdk.jol.info.ClassLayout;
 import models.Template;
 import models.Template.ArrHead2Frames;
@@ -23,8 +22,8 @@ public class ItemData {
         try {
             msg = new Message(-28);
             msg.writer().writeByte(8);
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(0); //update option
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(0); // update option
             msg.writer().writeByte(Manager.ITEM_OPTION_TEMPLATES.size());
             for (ItemOptionTemplate io : Manager.ITEM_OPTION_TEMPLATES) {
                 msg.writer().writeUTF(io.name);
@@ -43,8 +42,8 @@ public class ItemData {
             msg = new Message(-28);
             msg.writer().writeByte(8);
 
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(1); //reload itemtemplate
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(1); // reload itemtemplate
             msg.writer().writeShort(count);
             for (int i = 0; i < count; i++) {
                 Template.ItemTemplate itemTemplate = Manager.ITEM_TEMPLATES.get(i);
@@ -58,7 +57,8 @@ public class ItemData {
                 msg.writer().writeShort(itemTemplate.part);
                 msg.writer().writeBoolean(itemTemplate.isUpToUp);
             }
-            //System.out.println("Size Object: " +ClassLayout.parseInstance(msg).toPrintable());
+            // System.out.println("Size Object: "
+            // +ClassLayout.parseInstance(msg).toPrintable());
             session.doSendMessage(msg);
             msg.cleanup();
         } catch (Exception e) {
@@ -72,12 +72,13 @@ public class ItemData {
             msg = new Message(-28);
             msg.writer().writeByte(8);
 
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(2); //add itemtemplate
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(2); // add itemtemplate
             msg.writer().writeShort(start);
             msg.writer().writeShort(end);
             for (int i = start; i < end; i++) {
-//                System.out.println("start: " + start + " -> " + end + " id " + Manager.ITEM_TEMPLATES.get(i).id);
+                // System.out.println("start: " + start + " -> " + end + " id " +
+                // Manager.ITEM_TEMPLATES.get(i).id);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).type);
                 msg.writer().writeByte(Manager.ITEM_TEMPLATES.get(i).gender);
                 msg.writer().writeUTF(Manager.ITEM_TEMPLATES.get(i).name);
@@ -100,8 +101,8 @@ public class ItemData {
         try {
             msg = new Message(-28);
             msg.writer().writeByte(8);
-            msg.writer().writeByte(DataGame.vsItem); //vcitem
-            msg.writer().writeByte(100); //update ArrHead2F
+            msg.writer().writeByte(DataGame.vsItem); // vcitem
+            msg.writer().writeByte(100); // update ArrHead2F
             msg.writer().writeShort(Manager.ARR_HEAD_2_FRAMES.size());
             for (ArrHead2Frames io : Manager.ARR_HEAD_2_FRAMES) {
                 msg.writeByte(io.frames.size());

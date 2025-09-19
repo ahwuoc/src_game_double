@@ -1,9 +1,6 @@
-#!/bin/bash
-
-# Script để chạy Remote Mail Client độc lập
-# Đảm bảo rằng bạn đã compile project trước khi chạy script này
 
 echo "Starting Remote Mail Client..."
+echo "Connecting to server: 14.225.219.221:14446"
 
 # Tìm file jar hoặc class files
 if [ -f "dist/DragonBoy.jar" ]; then

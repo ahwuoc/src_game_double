@@ -26,8 +26,8 @@ java -cp "dist/DragonBoy.jar:lib/*" Mail.RemoteMailClient
 
 ### 3. Kết nối đến Server
 1. Nhập thông tin kết nối:
-   - **Server IP**: Địa chỉ IP của server game (mặc định: localhost)
-   - **Port**: Port của Remote Mail Server (mặc định: 14446)
+   - **Server IP**: 14.225.219.221 (IP VPS)
+   - **Port**: 14446 (Remote Mail Server port)
    - **Username**: Tên tài khoản admin
    - **Password**: Mật khẩu tài khoản admin
 

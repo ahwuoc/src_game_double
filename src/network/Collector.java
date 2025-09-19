@@ -8,7 +8,7 @@ import network.inetwork.IMessageSendCollect;
 import network.inetwork.ISession;
 
 public final class Collector
-implements Runnable {
+        implements Runnable {
     private ISession session;
     private DataInputStream dis;
     private IMessageSendCollect collect;
@@ -24,6 +24,7 @@ implements Runnable {
             this.dis = new DataInputStream(socket.getInputStream());
         } catch (IOException iOException) {
             // empty catch block
+
         }
         return this;
     }
@@ -77,4 +78,3 @@ implements Runnable {
         this.collect = null;
     }
 }
-

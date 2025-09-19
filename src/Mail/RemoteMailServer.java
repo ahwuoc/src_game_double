@@ -23,7 +23,7 @@ import item.Item.ItemOption;
 
 public class RemoteMailServer {
 
-    private static final int REMOTE_MAIL_PORT = 14446; // Port khác với game server
+    private static final int REMOTE_MAIL_PORT = 14446; // Port riêng cho Remote Mail Server
     private ServerSocket serverSocket;
     private boolean running = false;
 
