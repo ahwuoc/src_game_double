@@ -44,6 +44,7 @@ import models.ShenronEvent.ShenronEventManager;
 import models.SuperRank.SuperRankManager;
 import network.inetwork.ISessionAcceptHandler;
 import quayTamBao.TamBaoService;
+import Mail.RemoteMailServer;
 
 public class ServerManager {
 
@@ -89,8 +90,8 @@ public class ServerManager {
         new Thread(WorldMartialArtsTournamentManager.gI(), "Update WMAT").start();
         new Thread(AutoMaintenance.gI(), "Update Bảo Trì Tự Động").start();
         new Thread(ShenronEventManager.gI(), "Update Shenron").start();
-//        new Thread(UpdateManager.gI(), "Update Manager").start();
-        //new Thread(RemoteServerManager.gI(), "Remote Server Manager").start();
+        // new Thread(UpdateManager.gI(), "Update Manager").start();
+        // new Thread(RemoteServerManager.gI(), "Remote Server Manager").start();
         BossManager.gI().loadBoss();
         Manager.MAPS.forEach(map.Map::initBoss);
         EventManager.gI().init();
@@ -113,6 +114,10 @@ public class ServerManager {
         new Thread(DecisionMaker.gI(), "Update Decision Maker").start();
         SessionManager.gI().startCleanupThread();
         TamBaoService.loadItem();
+        new Thread(() -> {
+            RemoteMailServer mailServer = new RemoteMailServer();
+            mailServer.start();
+        }, "Remote Mail Server").start();
     }
 
     private void activeServerSocket() {
@@ -148,17 +153,17 @@ public class ServerManager {
         return true;
         // Object o = CLIENTS.get(ipAddress);
         // if (o == null) {
-        //     CLIENTS.put(ipAddress, 1);
-        //     return true;
+        // CLIENTS.put(ipAddress, 1);
+        // return true;
         // } else {
-        //     int n = Integer.parseInt(String.valueOf(o));
-        //     if (n < Manager.MAX_PER_IP) {
-        //         n++;
-        //         CLIENTS.put(ipAddress, n);
-        //         return true;
-        //     } else {
-        //         return true;
-        //     }
+        // int n = Integer.parseInt(String.valueOf(o));
+        // if (n < Manager.MAX_PER_IP) {
+        // n++;
+        // CLIENTS.put(ipAddress, n);
+        // return true;
+        // } else {
+        // return true;
+        // }
         // }
     }
 
@@ -174,7 +179,8 @@ public class ServerManager {
                 } else if (line.equals("athread")) {
                     System.out.println("Số thread hiện tại của Server Dragon Boy: " + Thread.activeCount());
                 } else if (line.equals("nplayer")) {
-                    System.out.println("Số lượng người chơi hiện tại của Server Dragon Boy: " + Client.gI().getPlayers().size());
+                    System.out.println(
+                            "Số lượng người chơi hiện tại của Server Dragon Boy: " + Client.gI().getPlayers().size());
                 } else if (line.equals("shop")) {
                     Manager.gI().updateShop();
                     System.out.println("===========================DONE UPDATE SHOP===========================");
