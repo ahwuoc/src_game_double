@@ -34,7 +34,8 @@ public class OngGohan extends Npc {
 
     int costNapVang = 1;
 
-    int[][] napVang = {{20000, 400}, {50000, 1050}, {100000, 2500}, {500000, 15000}, {1000000, 31000}, {2000000, 65000}, {5000000, 170000}};
+    int[][] napVang = { { 20000, 400 }, { 50000, 1050 }, { 100000, 2500 }, { 500000, 15000 }, { 1000000, 31000 },
+            { 2000000, 65000 }, { 5000000, 170000 } };
 
     @Override
     public void openBaseMenu(Player player) {
@@ -42,13 +43,13 @@ public class OngGohan extends Npc {
             if (!TaskService.gI().checkDoneTaskTalkNpc(player, this)) {
                 this.createOtherMenu(player, ConstNpc.BASE_MENU,
                         "|7|Xin Chào Anh Chị Đến Với Saga\n"
-                        + "|4|Bên Em Phục Vụ Từ AZ Cực Rẻ\n"
-                        + "Wesite:https://Dragonballsaga.vn",
+                                + "|4|Bên Em Phục Vụ Từ AZ Cực Rẻ\n"
+                                + "Wesite:https://Dragonballsaga.vn",
                         "GiftCode",
                         "Đổi\nTàiNguyên",
                         "Đổi mật khẩu",
                         "Nhận Đệ",
-                        "Nạp Tiền",
+                        // "Nạp Tiền",
                         "Next Nv");
             }
         }
@@ -63,7 +64,8 @@ public class OngGohan extends Npc {
                         Input.gI().createFormGiftCode(player);
                         break;
                     case 1: // nạp tiền
-                        String npcSay = "|7|Số dư Vnd: " + Util.numberToText(player.getSession().vnd) + " VND\n dùng để Đổi Vàng Ngọc\n"
+                        String npcSay = "|7|Số dư Vnd: " + Util.numberToText(player.getSession().vnd)
+                                + " VND\n dùng để Đổi Vàng Ngọc\n"
                                 + "Kho Cất giữ " + Util.numberToText(player.getSession().goldBar) + " Zenni";
                         createOtherMenu(player, ConstNpc.NAP_TIEN, npcSay,
                                 "Đổi Zenni",
@@ -86,17 +88,18 @@ public class OngGohan extends Npc {
                         }
                         break;
 
-                    case 4:
-                        NpcService.gI().createBigMessage(player, avartar, "Ấn Mở Vào Web Nạp Tự Động\b"
-                                + "|7|Số Dư " + Util.numberToText(player.getSession().vnd) + " VND",
-                                (byte) 1, "Mở", "https://Dragonballsaga.vn");
-                        break;
+                    // case 4:
+                    // NpcService.gI().createBigMessage(player, avartar, "Ấn Mở Vào Web Nạp Tự
+                    // Động\b"
+                    // + "|7|Số Dư " + Util.numberToText(player.getSession().vnd) + " VND",
+                    // (byte) 1, "Mở", "https://Dragonballsaga.vn");
+                    // break;
 
-                    case 5:
+                    case 4:
                         if (player.playerTask.taskMain.id < 20) {
                             player.playerTask.taskMain.id = 20;
                             TaskService.gI().sendNextTaskMain(player);
-                              } else {
+                        } else {
                             this.npcChat(player, "Mày Không Thể Next quá Nv kuku");
                         }
                         break;
@@ -107,7 +110,8 @@ public class OngGohan extends Npc {
                     case 0:
                         List<String> menu = new ArrayList<>();
                         for (int i = 0; i < napVang.length; i++) {
-                            menu.add(i, Util.numberToText(napVang[i][0]) + "\n" + Util.numberToText(napVang[i][1] * costNapVang) + " Zenni");
+                            menu.add(i, Util.numberToText(napVang[i][0]) + "\n"
+                                    + Util.numberToText(napVang[i][1] * costNapVang) + " Zenni");
                         }
                         String[] menus = menu.toArray(new String[0]);
                         createOtherMenu(player, ConstNpc.NAP_VANG, "Ta sẽ giữ giúp con\n"
@@ -119,13 +123,15 @@ public class OngGohan extends Npc {
                             Item thoiVang = ItemService.gI().createNewItem((short) 457, player.getSession().goldBar);
                             listItem.add(thoiVang);
                             if (InventoryService.gI().getCountEmptyBag(player) < listItem.size()) {
-                                Service.gI().sendThongBao(player, "Cần ít nhất " + listItem.size() + " ô trống trong hành trang");
+                                Service.gI().sendThongBao(player,
+                                        "Cần ít nhất " + listItem.size() + " ô trống trong hành trang");
                             }
                             for (Item it : listItem) {
                                 InventoryService.gI().addItemBag(player, it, 999999);
                                 InventoryService.gI().sendItemBag(player);
                             }
-                            Service.gI().sendThongBao(player, "Bạn đã nhận được " + player.getSession().goldBar + " Zenni");
+                            Service.gI().sendThongBao(player,
+                                    "Bạn đã nhận được " + player.getSession().goldBar + " Zenni");
                             PlayerDAO.subGoldBar(player, -(napVang[select][1] * costNapVang));
                             PlayerDAO.subGoldBar(player, player.getSession().goldBar);
                         }
@@ -136,18 +142,17 @@ public class OngGohan extends Npc {
                     case 3:
                         Input.gI().createFormQDhongngoc(player);
                         break;
-                     case 4:
+                    case 4:
                         Input.gI().createFormQDco4la(player);
-                        break;   
-                        
-                        
+                        break;
 
                 }
             } else if (player.iDMark.getIndexMenu() == ConstNpc.NAP_VANG) {
                 if (player.getSession().vnd >= napVang[select][0]) {
                     List<Item> listItem = new ArrayList<>();
                     if (InventoryService.gI().getCountEmptyBag(player) < listItem.size()) {
-                        Service.gI().sendThongBao(player, "Cần ít nhất " + listItem.size() + " ô trống trong hành trang");
+                        Service.gI().sendThongBao(player,
+                                "Cần ít nhất " + listItem.size() + " ô trống trong hành trang");
                     }
                     for (Item it : listItem) {
                         InventoryService.gI().addItemBag(player, it, 9999999);
@@ -157,7 +162,8 @@ public class OngGohan extends Npc {
                     PlayerDAO.subcash(player, napVang[select][0]);
                     BadgesTaskService.updateCountBagesTask(player, ConstTaskBadges.DAI_GIA_MOI_NHU, napVang[select][0]);
                     PlayerDAO.subGoldBar(player, -(napVang[select][1] * costNapVang));
-                    Service.gI().sendThongBao(player, "Bạn có thêm " + Util.numberToText(napVang[select][1] * costNapVang) + " Zenni");
+                    Service.gI().sendThongBao(player,
+                            "Bạn có thêm " + Util.numberToText(napVang[select][1] * costNapVang) + " Zenni");
                 } else {
                     Service.gI().sendThongBao(player, "Không đủ số dư");
                 }
